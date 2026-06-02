@@ -5,8 +5,9 @@ clone_or_pull() {
     local repo="$1"
     local dir="$2"
     if [ -d "$dir/.git" ]; then
-        echo "Pulling latest $dir..."
-        git -C "$dir" pull --ff-only
+        echo "Updating $dir from origin/HEAD..."
+        git -C "$dir" fetch origin
+        git -C "$dir" reset --hard origin/HEAD
     else
         echo "Cloning $repo into $dir..."
         git clone "$repo" "$dir"
